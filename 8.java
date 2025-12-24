@@ -12,78 +12,35 @@
 import java.awt.*;
 import java.awt.event.*;
 
-class LoginAWT extends Frame implements ActionListener, KeyListener {
+public class 8{
+    public static void main(String[] args){
+        Frame f = new Frame("Login");
+        f.setLayout(new FlowLayout());
+        
+        TextField user = new TextField(10);
+        TextField pass = new TextField(10);
+        pass.setEchoChar('*');
 
-    Label lUser, lPass, lResult;
-    TextField tUser, tPass;
-    Button btnLogin;
+        Label l1 = new Label("user:");
+        Label l2 = new Label("Pass:");
+        Label msg = new Label("");
+        Button b = new Button("Login");
 
-    LoginAWT() {
-        // Set Frame properties
-        setTitle("Login Window");
-        setSize(300, 200);
-        setLayout(new FlowLayout());
+        f.add(l1); f.add(user);
+        f.add(l2); f.add(pass);
+        f.add(b);
+        f.add(msg);
 
-        // Create components
-        lUser = new Label("Username:");
-        tUser = new TextField(20);
+        b.addActionListener(e ->{
+            if(user.getText().equals("admin") && pass.getText().equals("123"))
+                msg.setText("Success");
+            else
+                msg.setText("Fail");
 
-        lPass = new Label("Password:");
-        tPass = new TextField(20);
-        tPass.setEchoChar('*');
-
-        btnLogin = new Button("Login");
-        lResult = new Label("");
-
-        // Add components to frame
-        add(lUser);
-        add(tUser);
-        add(lPass);
-        add(tPass);
-        add(btnLogin);
-        add(lResult);
-
-        // Register listeners
-        btnLogin.addActionListener(this);
-        tPass.addKeyListener(this);
-
-        // Close window
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                dispose();
-            }
         });
 
-        setVisible(true);
-    }
+        f.setSize(200, 150);
+        f.setVisible(true);
 
-    // Login validation logic
-    public void actionPerformed(ActionEvent e) {
-        validateLogin();
-    }
-
-    void validateLogin() {
-        String user = tUser.getText();
-        String pass = tPass.getText();
-
-        if (user.equals("admin") && pass.equals("1234")) {
-            lResult.setText("Login Successful");
-        } else {
-            lResult.setText("Login Failed");
-        }
-    }
-
-    // Trigger login on Enter key
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            validateLogin();
-        }
-    }
-
-    public void keyReleased(KeyEvent e) {}
-    public void keyTyped(KeyEvent e) {}
-
-    public static void main(String[] args) {
-        new LoginAWT();
     }
 }

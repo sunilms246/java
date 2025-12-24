@@ -56,7 +56,7 @@ class DynamicStack implements Stack {
 }
 
 // Test Class
-class StackDemo {
+class 1 {
     public static void main(String[] args) {
 
         Stack s;
