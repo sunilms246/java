@@ -12,35 +12,42 @@
 import java.awt.*;
 import java.awt.event.*;
 
-public class 8{
-    public static void main(String[] args){
+public class MiniLogin {
+
+    public static void main(String[] args) {
+
         Frame f = new Frame("Login");
         f.setLayout(new FlowLayout());
-        
+
         TextField user = new TextField(10);
         TextField pass = new TextField(10);
         pass.setEchoChar('*');
 
-        Label l1 = new Label("user:");
+        Label l1 = new Label("User:");
         Label l2 = new Label("Pass:");
         Label msg = new Label("");
+
         Button b = new Button("Login");
 
-        f.add(l1); f.add(user);
-        f.add(l2); f.add(pass);
+        f.add(l1);  f.add(user);
+        f.add(l2);  f.add(pass);
         f.add(b);
         f.add(msg);
 
-        b.addActionListener(e ->{
+        // Button click login
+        b.addActionListener(e -> {
             if(user.getText().equals("admin") && pass.getText().equals("123"))
                 msg.setText("Success");
             else
                 msg.setText("Fail");
-
         });
 
-        f.setSize(200, 150);
-        f.setVisible(true);
+        // Enter key login
+        pass.addActionListener(e -> b.dispatchEvent(
+            new ActionEvent(b, ActionEvent.ACTION_PERFORMED, "")
+        ));
 
+        f.setSize(200,150);
+        f.setVisible(true);
     }
 }
