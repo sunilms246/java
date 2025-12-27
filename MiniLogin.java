@@ -12,7 +12,7 @@
 import java.awt.*;
 import java.awt.event.*;
 
-public class 8 {
+public class MiniLogin {
 
     public static void main(String[] args) {
 
