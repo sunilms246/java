@@ -4,93 +4,111 @@
 typedef struct node
 {
     char name[20];
-    char branch[20];
     char usn[20];
+    char branch[20];
     int year;
-    struct node *rptr, *lptr;
-}NODE;
-
-void insertFirst(NODE *head){
-    NODE *newnode = (NODE *)malloc(sizeof(NODE));
-    printf("\nEnter student details\n");
-    printf("Name:"); scanf("%s", newnode->name);
-    printf("USN :"); scanf("%s", newnode->usn);
-    printf("branch:"); scanf("%s", newnode->branch);
-    printf("admission year:"); scanf("%d", &newnode->year);
+    struct node *lptr, *rptr;
+} NODE;
+// To add a student at the beginning of the list
+void ins_first(NODE *head)
+{
+    NODE *newnode;
+    newnode = (NODE *)malloc(sizeof(NODE));
+    printf("\nEnter the details of the student...\n");
+    printf("Name: ");
+    scanf("%s", newnode->name);
+    printf("USN: ");
+    scanf("%s", newnode->usn);
+    printf("Branch: ");
+    scanf("%s", newnode->branch);
+    printf("Year of admission: ");
+    scanf("%d", &newnode->year);
     newnode->rptr = head->rptr;
-    if(head->rptr!=NULL)
+    if (head->rptr != NULL)
         head->rptr->lptr = newnode;
-    head->rptr = newnode;    
+    head->rptr = newnode;
     newnode->lptr = head;
-    printf("student added sucessfully");
+    printf("Student is added successfully to the list");
     head->year++;
-
 }
-void display1(NODE *head){
+// To display the details of the students of a specified branch
+void display1(NODE *head)
+{
     NODE *first;
     char branch[20];
     int flag = 0;
-    if(head->rptr == NULL){
-        printf("\nlist is wmpty");
+    if (head->rptr == NULL)
+    {
+        printf("\nEmpty list");
         return;
     }
-    first = head->rptr;
-    printf("Enter vranch to search");
+    printf("\nEnter the branch: ");
     scanf("%s", branch);
-    while(first!=NULL){
-       if(strcmp(branch, first->branch)==0){
-
-           if(flag == 0){
-               printf("Name\tUsn\tyear of admission\n");
-               flag == 1;
+    first = head->rptr;
+    while (first != NULL)
+    {
+        if (strcmp(first->branch, branch) == 0)
+        {
+            if (flag == 0)
+            {
+                printf("\nList of students belonging to branch %s\n", branch);
+                printf("\n\nName\tUSN\tYear of admission\n");
+                flag = 1;
             }
-            pritnf("%s\t%s\t%d\n", first->name, first->usn, first->year);
-
+            printf("%s\t%s\t%d\n", first->name, first->usn, first->year);
         }
-        first= first->rptr;
+        first = first->rptr;
     }
-    if(flag== 0){
-        printf("\nfailure no such student from %s", branch);
-    }
+    if (flag == 0)
+        printf("\nFailure, no student from branch %s", branch);
 }
-
-void display2(NODE *head){
-    if(head->rptr == NULL){
-        printf("list is empty");
+// To display the details of all the students
+void display2(NODE *head)
+{
+    NODE *first;
+    if (head->rptr == NULL)
+    {
+        printf("\nEmpty list");
         return;
     }
-    NODE *first = head->rptr;
-    printf("\nNmae\tusn\tbranch\tadmisson\n");
-    while(first!=NULL){
-        printf("%s\t%s\t%s\t%d", first->name, first->usn, first->branch, first->year);
+    printf("\nName\tUSN\tBranch\tYear of admission\n");
+    first = head->rptr;
+    while (first != NULL)
+    {
+        printf("%s\t%s\t%s\t%d\n", first->name, first->usn, first->branch, first->year);
         first = first->rptr;
-    }pritnf("Nuber of student %d", head->year);
-
+    }
+    printf("\nTotal number of students = %d", head->year);
 }
-
-int main(){
+int main()
+{
     NODE *head;
-    head = (NODE *)malloc(sizeof(NODE));
-    head->rptr = head->lptr = NULL;
-    head->year = 0;
     int choice;
-    while(1){
-        printf("\n1:add\n2:search\n3:displau all\n4:exit\nenter your choice");
+    head = (NODE *)malloc(sizeof(NODE));
+    head->lptr = head->rptr = NULL;
+    head->year = 0;
+    while (1)
+    {
+        printf("\n1:Add student\n2:Display based on branch\n3:Display all\n4:exit");
+        printf("\nEnter your choice: ");
         scanf("%d", &choice);
         switch (choice)
         {
         case 1:
-            insertFirst(head);
+            ins_first(head);
             break;
-        case 2: display1(head);
+
+        case 2:
+            display1(head);
             break;
-        case 3: display2(head);
+        case 3:
+            display2(head);
             break;
-        case 4: exit(0);
-            
-        
-        default: pritnf("invalid choice");
-            break;
+        case 4:
+            exit(0);
+        default:
+            printf("\nInvalid choice");
         }
     }
+    return 0;
 }
