@@ -1,0 +1,35 @@
+// Code your design here
+// 4-bit Carry Lookahead Adder Module
+module cla_adder_4bit (
+    input [3:0] A,      // 4-bit Input A
+    input [3:0] B,      // 4-bit Input B
+    input Cin,          // Carry Input
+    output [3:0] Sum,   // 4-bit Sum Output
+    output Cout         // Final Carry Output
+);
+
+    wire [3:0] P, G;    // Propagate and Generate signals
+    wire [4:0] C;       // Carry signals (C[0] is Cin)
+
+    // Step 1: Calculate Propagate (P) and Generate (G) for all bits
+    // P = A XOR B
+    // G = A AND B
+    assign P = A ^ B;
+    assign G = A & B;
+
+    // Step 2: Carry Lookahead Logic (The "Fast" part)
+    // We calculate all carries immediately based on inputs, not previous carries.
+    assign C[0] = Cin;
+    assign C[1] = G[0] | (P[0] & C[0]);
+    assign C[2] = G[1] | (P[1] & G[0]) | (P[1] & P[0] & C[0]);
+    assign C[3] = G[2] | (P[2] & G[1]) | (P[2] & P[1] & G[0]) | (P[2] & P[1] & P[0] & C[0]);
+    assign C[4] = G[3] | (P[3] & G[2]) | (P[3] & P[2] & G[1]) | (P[3] & P[2] & P[1] & G[0]) | (P[3] & P[2] & P[1] & P[0] & C[0]);
+
+    // Step 3: Calculate Sum
+    // Sum = P XOR Carry
+    assign Sum = P ^ C[3:0];
+    
+    // Assign final carry out
+    assign Cout = C[4];
+
+endmodule
