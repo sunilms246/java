@@ -1,0 +1,49 @@
+module tb_cla_adder;
+
+    // Inputs
+    reg [3:0] A;
+    reg [3:0] B;
+    reg Cin;
+
+    // Outputs
+    wire [3:0] Sum;
+    wire Cout;
+
+    // Instantiate the Unit Under Test (UUT)
+    cla_adder_4bit uut (
+        .A(A), 
+        .B(B), 
+        .Cin(Cin), 
+        .Sum(Sum), 
+        .Cout(Cout)
+    );
+
+    initial begin
+        // Create VCD file
+        $dumpfile("cla_adder.vcd");     // VCD filename
+        $dumpvars(0, tb_cla_adder);     // Dump all signals in testbench
+
+        // Monitor output
+        $monitor("Time=%0t | A=%d B=%d Cin=%b | Sum=%d Cout=%b", 
+                 $time, A, B, Cin, Sum, Cout);
+
+        // Test Case 1: 2 + 3
+        A = 4'd2; B = 4'd3; Cin = 0;
+        #10;
+
+        // Test Case 2: 5 + 5 + 1
+        A = 4'd5; B = 4'd5; Cin = 1;
+        #10;
+
+        // Test Case 3: 15 + 1
+        A = 4'd15; B = 4'd1; Cin = 0;
+        #10;
+
+        // Test Case 4: 15 + 15 + 1
+        A = 4'd15; B = 4'd15; Cin = 1;
+        #10;
+
+        $finish;
+    end
+
+endmodule
