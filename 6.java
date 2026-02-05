@@ -5,36 +5,25 @@ file. Design a Java program that
 - Writes the details into a file using or .
 - Automatically closes the file using .
 */
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class FeedbackSystem {
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter Student Name: ");
-        String name = sc.nextLine();
+        System.out.print("Name: "); String n = sc.nextLine();
+        System.out.print("Course: "); String c = sc.nextLine();
+        System.out.print("Feedback: "); String f = sc.nextLine();
 
-        System.out.print("Enter Course: ");
-        String course = sc.nextLine();
-
-        System.out.print("Enter Feedback: ");
-        String feedback = sc.nextLine();
-
-        // Try-with-resources to auto close file
-        try (FileWriter fw = new FileWriter("feedback.txt", true)) {
-
-            fw.write("Student Name: " + name + "\n");
-            fw.write("Course      : " + course + "\n");
-            fw.write("Feedback    : " + feedback + "\n");
-            fw.write("----------------------------------\n");
-
-            System.out.println("Feedback saved successfully.");
-
+        try (PrintWriter pw = new PrintWriter(new FileWriter("feedback.txt", true))) {
+            pw.println("Name    : " + n);
+            pw.println("Course  : " + c);
+            pw.println("Feedback: " + f);
+            pw.println("-------------------------");
+            System.out.println("Saved!");
         } catch (IOException e) {
-            System.out.println("File error occurred.");
+            System.out.println("File error!");
         }
 
         sc.close();
