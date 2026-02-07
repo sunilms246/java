@@ -1,7 +1,7 @@
 // LAB PROGRAM12: Develop a C program to perform the following operations:
 // a) Construct a binary search tree of integers.
 // b) Traverse the tree in Inorder.
-// c) Delete a given node from the BST.
+// c) Delete a given node from the BST...
 // Solution:
 #include <stdio.h>
 #include <stdlib.h>
