@@ -1,3 +1,11 @@
+// Lab Program7: Define a structure to represent a node in a Singly Linked List. 
+// Each node must contain following information: player name, team name and 
+// batting average. Develop a C program using functions to perform the following 
+// operations on a list of cricket players:
+//  Add a player at the end of the list.
+//  Search for a specific player and update his/her batting average if the 
+// player exists.
+//  Display the details of all the players.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,6 +16,7 @@ typedef struct node
     float bavg;
     struct node *next;
 } NODE;
+// insert last
 NODE *addPlayer(NODE *first)
 {
     NODE *newnode, *temp;

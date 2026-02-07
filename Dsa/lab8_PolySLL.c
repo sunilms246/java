@@ -1,5 +1,7 @@
-#include <stdio.h>
+// Lab Program8: Develop a C program to add two two-variable polynomials 
+// using Singly Linked list.
 #include <stdlib.h>
+#include <stdio.h>
 typedef struct node
 {
     float coeff;

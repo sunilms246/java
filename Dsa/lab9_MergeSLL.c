@@ -1,3 +1,9 @@
+// LAB PROGRAM9: Develop a C program to construct two ordered singly linked 
+// lists using functions to perform following operations:
+// • Insert an element into a list.
+// • Merge the two lists.
+// • Display the contents of the list.
+// Display the two input lists and the resultant list with suitable messages.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,3 +1,11 @@
+/*LAB PROGRAM10: Define a structure to represent a node in a Linear Doubly 
+Linked List with header node. Each node must contain following information: 
+Student name, USN, branch and year of admission. Header node should 
+maintain the count of number of students in the list. Develop a C program 
+using functions to perform the following operations on a list of students:
+a) Add a student at the beginning of the list.
+b) Display the details of the students of a specified branch.
+c) Display the details of all the students.*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
