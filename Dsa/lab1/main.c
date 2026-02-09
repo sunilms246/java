@@ -1,146 +1,131 @@
-#include<stdio.h>
 #include<stdlib.h>
+#include<stdio.h>
 
 typedef struct node
 {
-    int info;
+    float coffe;
+    float powx;
+    float powy;
+    int flag;
     struct node *next;
-}NODE;
+} NODE;
 
-NODE *insOrder(NODE *first, int data)
-{
-    NODE *newnode, *temp, *prev = NULL;
-    newnode = (NODE* )malloc(sizeof(NODE));
-    newnode->info = data;
 
-    if(first == NULL|| data< first->info)
-    {
-        newnode->next = first;
-        first = newnode;
-    }
-    else{
-        temp = first;
-        while(temp!=NULL && data>temp->info)
-        {
-            prev = temp;
-            temp = temp->next;
-        }
-        if(temp == NULL || data!= temp->info)
-        {
-            prev->next = newnode;
-            newnode->next = temp;
-        }
-    }
-    return first;
-}
-
-NODE *insLast(NODE *first, int data)
+NODE* insLast(NODE *first, float c, float x, float y)
 {
     NODE *newnode, *temp;
-    newnode = (NODE *)malloc(sizeof(NODE));
-    newnode->info = data;
+    newnode = (NODE*)malloc(sizeof(NODE));
+    newnode->coffe= c;
+    newnode->powx = x;
+    newnode->powy = y;
+    newnode->flag = 0;
     newnode->next = NULL;
+
     if(first == NULL)
     {
-        newnode->next = first;
         first = newnode;
     }
-    else{
+    else
+    {
         temp = first;
-        while(temp->next!= NULL)
+        while(temp->next!=NULL)
             temp = temp->next;
         temp->next = newnode;
     }
-    printf("\nNODE with %d is inserted at the last", data);
     return first;
 }
 
-void disp(NODE *first)
+NODE *read(NODE *first)
+{
+    float c, x, y;
+    printf("\nEnter coefficent:");
+    scanf("%f", &c);
+    while(c!=999)
+    {
+        printf("enter powx:");
+        scanf("%f", &x);
+        printf("enter powy:");
+        scanf("%f", &y);
+        first  = insLast(first, c,x,y);
+        printf("\nEnter coefficent:");
+        scanf("%f", &c);
+    }
+    return first;
+}
+
+void display(NODE *first)
 {
     if(first == NULL)
     {
         printf("\nEmpty list");
         return;
     }
-    printf("\nLlist content\nFront->");
-    while(first!=NULL)
+    while(first->next!=NULL)
     {
-        printf("%d->", first->info);
-        first= first->next;
+        printf("%.0fx^%.0fy^%.0f + ", first->coffe, first->powx, first->powy);
+        first = first->next;
     }
-    printf("End");
+    printf("%.0fx^%.0fy^%.0f", first->coffe, first->powx, first->powy);
+
 }
 
-NODE *merList(NODE *L1, NODE *L2)
+
+NODE *addP(NODE*p1, NODE *p2,NODE *p3 )
 {
-    NODE *L3 = NULL;
-    if(L1==NULL && L2== NULL)
+    NODE  *temp;
+    float cf;
+    temp = p2;
+    while(p1!=NULL)
     {
-        printf("\nBoth list are empty");
-        return NULL;
-    }
-    while(L1!=NULL && L2!=NULL)
-    {
-        if(L1->info < L2->info)
+        while(p2!=NULL)
         {
-            L3 = insLast(L3 , L1->info);
-            L1 = L1->next;
+
+            if((p1->powx==p2->powx) && (p1->powy==p2->powy) )
+            {
+                break;
+            }
+            p2 = p2->next;
         }
-        else if(L1->info > L2->info)
+        if(p2==NULL)
         {
-            L3 = insLast(L3, L2->info);
-            L2 = L2->next;
+            p3 = insLast(p3, p1->coffe, p1->powx, p1->powy);
         }
         else
         {
-            L3 = insLast(L3 , L1->info);
-            L1 = L1->next;
-            L2 = L2->next;
+            cf = p1->coffe + p2->coffe;
+            p2->flag = 1;
+            if(cf!=0)
+                p3 = insLast(p3, cf, p1->powx, p1->powy);
         }
+        p2 = temp;
+        p1 = p1->next;
     }
-    while(L1!=NULL)
+
+    while(p2!=NULL)
     {
-        L3 = insLast(L3, L1->info);
-        L1 = L1->next;
+        if(p2->flag==0)
+        {
+            p3 = insLast(p3, p2->coffe, p2->powx, p2->powy);
+        }
+        p2 = p2->next;
     }
-    while(L2!= NULL)
-    {
-        L3 = insLast(L3 , L2->info);
-        L2 = L2->next;
-    }
-    printf("\nBoth list are merged");
-    return L3;
+    return p3;
+
 }
 
 int main()
 {
-    NODE *L1=NULL;NODE *L2=NULL; NODE* L3=NULL;
-    int choice, data;
-    while(1)
-    {
-        printf("\n\n1:insert_1\n2:insert_2\n3:merge\n4:display\n5:exit\nEnter your choice:");
-        scanf("%d", &choice);
-        switch(choice)
-        {
-            case 1: printf("\nEnter data to insert:");
-                    scanf("%d", &data);
-                    L1 = insOrder(L1, data);
-                    break;
-            case 2: printf("\nEnter data to insert:");
-                    scanf("%d", &data);
-                    L2 = insOrder(L2, data);
-                    break;
-            case 3: L3 = merList(L1, L2);
-                    disp(L3);
-                    break;
-            case 4:printf("\nLlist 1 ");
-                    disp(L1);
-                    printf("\nList 2 ");
-                    disp(L2);
-                    break;
-            case 5: exit(0);
-            default: printf("\nInvalid choice");
-        }
-    }
+    NODE *p1=NULL, *p2=NULL, *p3=NULL;
+    printf("\nEnter first polynomial:");
+    p1 = read(p1);
+    printf("\nEnter second polynomial:");
+    p2 = read(p2);
+    p3 = addP(p1, p2, p3);
+    printf("\nFirst polynomial:");
+    display(p1);
+    printf("\nSecond polynomial:");
+    display(p2);
+    printf("\nResultant polynomial:");
+    display(p3);
     return 0;
 }

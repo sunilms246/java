@@ -76,7 +76,6 @@ NODE *del_student(NODE *first)
 {
     NODE *temp;
     char usn[20];
-    int flag = 0;
     if (first == NULL)
         printf("\nEmpty list");
     else
