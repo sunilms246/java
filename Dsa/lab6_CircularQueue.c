@@ -70,10 +70,10 @@ int main()
                 printf("\nCircular Queue Overflow !!!");
             else
             {
+                printf("\nEnter the data to be inserted: ");
+                scanf("%d", &data);
+                INSERT(&q, data);
             }
-            printf("\nEnter the data to be inserted: ");
-            scanf("%d", &data);
-            INSERT(&q, data);
             break;
         case 2:
             if (isempty(q))

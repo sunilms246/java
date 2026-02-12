@@ -74,6 +74,7 @@ int main()
                 PUSH(&s, symb);
             }
         }
+    }
         while (PEEK(s) != '#')
             postfix[j++] = POP(&s);
         postfix[j] = '\0';

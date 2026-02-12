@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #define MAXSIZE 3
-               typedef struct
+typedef struct
 {
     char items[MAXSIZE][25];
     int top;
